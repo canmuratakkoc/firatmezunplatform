@@ -1,1 +1,0 @@
-Veritabanı dosyaları burada bulunur
