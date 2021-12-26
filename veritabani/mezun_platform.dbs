@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MySql" id="Project-1496" database="MySql" >
+	<schema name="mezun_platform" >
+		<table name="basvuru" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="metin" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="ilan_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_basvuru" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="basvuru_ilan_id_foreign" unique="NORMAL" >
+				<column name="ilan_id" />
+			</index>
+			<index name="basvuru_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<fk name="basvuru_ilan_id_foreign" to_schema="mezun_platform" to_table="ilan" delete_action="restrict" update_action="restrict" >
+				<fk_column name="ilan_id" pk="id" />
+			</fk>
+			<fk name="basvuru_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+		</table>
+		<table name="bildirim" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="metin" type="varchar" length="150" decimal="0" jt="12" mandatory="y" />
+			<column name="link" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="resim_id" type="bigint" length="20" decimal="0" jt="-5" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_bildirim" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="bildirim_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<index name="bildirim_resim_id_foreign" unique="NORMAL" >
+				<column name="resim_id" />
+			</index>
+			<fk name="bildirim_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+			<fk name="bildirim_resim_id_foreign" to_schema="mezun_platform" to_table="resim" delete_action="restrict" update_action="restrict" >
+				<fk_column name="resim_id" pk="id" />
+			</fk>
+		</table>
+		<table name="bolum" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="ad" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_bolum" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="duyuru" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="metin" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_duyuru" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="etkilesim" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="gonderi_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_etkilesim" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="etkilesim_gonderi_id_foreign" unique="NORMAL" >
+				<column name="gonderi_id" />
+			</index>
+			<index name="etkilesim_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<fk name="etkilesim_gonderi_id_foreign" to_schema="mezun_platform" to_table="gonderi" delete_action="restrict" update_action="restrict" >
+				<fk_column name="gonderi_id" pk="id" />
+			</fk>
+			<fk name="etkilesim_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+		</table>
+		<table name="etkinlik" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="metin" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="bas_tarih" type="timestamp" decimal="0" jt="93" mandatory="y" />
+			<column name="bit_tarih" type="timestamp" decimal="0" jt="93" mandatory="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_etkinlik" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="filtre" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="kelime" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_filtre" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="gonderi" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="metin" type="varchar" length="300" decimal="0" jt="12" mandatory="y" />
+			<column name="resim_id" type="bigint" length="20" decimal="0" jt="-5" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_gonderi" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="gonderi_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<index name="gonderi_resim_id_foreign" unique="NORMAL" >
+				<column name="resim_id" />
+			</index>
+			<fk name="gonderi_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+			<fk name="gonderi_resim_id_foreign" to_schema="mezun_platform" to_table="resim" delete_action="restrict" update_action="restrict" >
+				<fk_column name="resim_id" pk="id" />
+			</fk>
+		</table>
+		<table name="grup" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="aciklama" type="varchar" length="300" decimal="0" jt="12" mandatory="y" />
+			<column name="acik" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_grup" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="grup_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<fk name="grup_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+		</table>
+		<table name="grup_uye" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="izin" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="aktif" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="grup_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="k_tarih" type="timestamp" decimal="0" jt="93" mandatory="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_grup_uye" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="grup_uye_grup_id_foreign" unique="NORMAL" >
+				<column name="grup_id" />
+			</index>
+			<index name="grup_uye_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<fk name="grup_uye_grup_id_foreign" to_schema="mezun_platform" to_table="grup" delete_action="restrict" update_action="restrict" >
+				<fk_column name="grup_id" pk="id" />
+			</fk>
+			<fk name="grup_uye_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+		</table>
+		<table name="ilan" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="baslik" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="metin" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="resim_id" type="bigint" length="20" decimal="0" jt="-5" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_ilan" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="ilan_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<index name="ilan_resim_id_foreign" unique="NORMAL" >
+				<column name="resim_id" />
+			</index>
+			<fk name="ilan_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+			<fk name="ilan_resim_id_foreign" to_schema="mezun_platform" to_table="resim" delete_action="restrict" update_action="restrict" >
+				<fk_column name="resim_id" pk="id" />
+			</fk>
+		</table>
+		<table name="kullanici" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="bolum_id" type="bigint" length="20" decimal="0" jt="-5" unsigned="y" />
+			<column name="yetki" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="editor" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="mail" type="varchar" length="75" decimal="0" jt="12" mandatory="y" />
+			<column name="sifre" type="varchar" length="20" decimal="0" jt="12" mandatory="y" />
+			<column name="ad" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="telefon" type="varchar" length="10" decimal="0" jt="12" mandatory="y" />
+			<column name="d_tarih" type="varchar" length="10" decimal="0" jt="12" mandatory="y" />
+			<column name="k_tarih" type="varchar" length="10" decimal="0" jt="12" mandatory="y" />
+			<column name="m_tarih" type="varchar" length="10" decimal="0" jt="12" mandatory="y" />
+			<column name="facebook" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="instagram" type="varchar" length="30" decimal="0" jt="12" />
+			<column name="twitter" type="varchar" length="15" decimal="0" jt="12" />
+			<column name="son_giris" type="timestamp" decimal="0" jt="93" mandatory="y" />
+			<column name="aktif" type="boolean" length="1" decimal="0" jt="16" mandatory="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_kullanici" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="kullanici_bolum_id_foreign" unique="NORMAL" >
+				<column name="bolum_id" />
+			</index>
+			<fk name="kullanici_bolum_id_foreign" to_schema="mezun_platform" to_table="bolum" delete_action="restrict" update_action="restrict" >
+				<fk_column name="bolum_id" pk="id" />
+			</fk>
+		</table>
+		<table name="migrations" row_count="0" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="migration" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="batch" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<index name="pk_migrations" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="personal_access_tokens" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="tokenable_type" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="tokenable_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="name" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="token" type="varchar" length="64" decimal="0" jt="12" mandatory="y" />
+			<column name="abilities" type="text" length="65535" decimal="0" jt="-1" />
+			<column name="last_used_at" type="timestamp" decimal="0" jt="93" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_personal_access_tokens" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="personal_access_tokens_token_unique" unique="UNIQUE_KEY" >
+				<column name="token" />
+			</index>
+			<index name="personal_access_tokens_tokenable_type_tokenable_id_index" unique="NORMAL" >
+				<column name="tokenable_type" />
+				<column name="tokenable_id" />
+			</index>
+		</table>
+		<table name="rapor" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="tip" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" />
+			<index name="pk_rapor" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="rapor_kayit" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="icerik" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="rapor_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_rapor_kayit" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="rapor_kayit_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<index name="rapor_kayit_rapor_id_foreign" unique="NORMAL" >
+				<column name="rapor_id" />
+			</index>
+			<fk name="rapor_kayit_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+			<fk name="rapor_kayit_rapor_id_foreign" to_schema="mezun_platform" to_table="rapor" delete_action="restrict" update_action="restrict" >
+				<fk_column name="rapor_id" pk="id" />
+			</fk>
+		</table>
+		<table name="resim" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="adres" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_resim" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="yorum" row_count="0" >
+			<column name="id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="ust_yorum" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="metin" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<column name="gonderi_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="kullanici_id" type="bigint" length="20" decimal="0" jt="-5" mandatory="y" unsigned="y" />
+			<column name="created_at" type="timestamp" decimal="0" jt="93" />
+			<column name="updated_at" type="timestamp" decimal="0" jt="93" />
+			<index name="pk_yorum" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="yorum_gonderi_id_foreign" unique="NORMAL" >
+				<column name="gonderi_id" />
+			</index>
+			<index name="yorum_kullanici_id_foreign" unique="NORMAL" >
+				<column name="kullanici_id" />
+			</index>
+			<fk name="yorum_gonderi_id_foreign" to_schema="mezun_platform" to_table="gonderi" delete_action="restrict" update_action="restrict" >
+				<fk_column name="gonderi_id" pk="id" />
+			</fk>
+			<fk name="yorum_kullanici_id_foreign" to_schema="mezun_platform" to_table="kullanici" delete_action="restrict" update_action="restrict" >
+				<fk_column name="kullanici_id" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-8.0.23.jar" driver_desc="Standard" host="localhost" port="3306" instance="mezun_platform" user="root" passwd="cm9vdHJvb3Q=" />
+	<layout name="Main Layout" id="Layout-10aa" show_relation="columns" >
+		<entity schema="mezun_platform" name="basvuru" color="BEBEF4" x="672" y="336" />
+		<entity schema="mezun_platform" name="bildirim" color="BEBEF4" x="592" y="752" />
+		<entity schema="mezun_platform" name="bolum" color="C7F4BE" x="432" y="368" />
+		<entity schema="mezun_platform" name="duyuru" color="BED3F4" x="736" y="768" />
+		<entity schema="mezun_platform" name="etkilesim" color="C7F4BE" x="432" y="544" />
+		<entity schema="mezun_platform" name="etkinlik" color="C7F4BE" x="928" y="80" />
+		<entity schema="mezun_platform" name="filtre" color="BED3F4" x="896" y="544" />
+		<entity schema="mezun_platform" name="gonderi" color="C7F4BE" x="432" y="112" />
+		<entity schema="mezun_platform" name="grup" color="C7F4BE" x="48" y="544" />
+		<entity schema="mezun_platform" name="grup_uye" color="C7F4BE" x="240" y="800" />
+		<entity schema="mezun_platform" name="ilan" color="BEBEF4" x="592" y="112" />
+		<entity schema="mezun_platform" name="kullanici" color="C7F4BE" x="240" y="112" />
+		<entity schema="mezun_platform" name="migrations" color="BED3F4" x="896" y="656" />
+		<entity schema="mezun_platform" name="personal_access_tokens" color="BED3F4" x="896" y="768" />
+		<entity schema="mezun_platform" name="rapor" color="F4DDBE" x="784" y="576" />
+		<entity schema="mezun_platform" name="rapor_kayit" color="F4DDBE" x="592" y="576" />
+		<entity schema="mezun_platform" name="resim" color="BEBEF4" x="784" y="112" />
+		<entity schema="mezun_platform" name="yorum" color="C7F4BE" x="240" y="544" />
+		<group name="rapor_kayit" color="F7F2EC" >
+			<entity schema="mezun_platform" name="rapor_kayit" />
+			<entity schema="mezun_platform" name="rapor" />
+		</group>
+		<group name="ilan" color="ECECF7" >
+			<entity schema="mezun_platform" name="ilan" />
+			<entity schema="mezun_platform" name="resim" />
+			<entity schema="mezun_platform" name="basvuru" />
+		</group>
+		<group name="kullanici" color="EEF7EC" >
+			<entity schema="mezun_platform" name="kullanici" />
+			<entity schema="mezun_platform" name="gonderi" />
+			<entity schema="mezun_platform" name="etkilesim" />
+			<entity schema="mezun_platform" name="yorum" />
+			<entity schema="mezun_platform" name="grup" />
+			<entity schema="mezun_platform" name="grup_uye" />
+			<entity schema="mezun_platform" name="bolum" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-1470" show_column_type="y" show_relation="columns" >
+		<entity schema="mezun_platform" name="basvuru" color="BEBEF4" x="1360" y="304" />
+		<entity schema="mezun_platform" name="bildirim" color="BEBEF4" x="1616" y="48" />
+		<entity schema="mezun_platform" name="bolum" color="C7F4BE" x="560" y="304" />
+		<entity schema="mezun_platform" name="duyuru" color="BED3F4" x="1136" y="1056" />
+		<entity schema="mezun_platform" name="etkilesim" color="C7F4BE" x="560" y="480" />
+		<entity schema="mezun_platform" name="etkinlik" color="C7F4BE" x="816" y="480" />
+		<entity schema="mezun_platform" name="filtre" color="BED3F4" x="1392" y="1056" />
+		<entity schema="mezun_platform" name="gonderi" color="C7F4BE" x="560" y="48" />
+		<entity schema="mezun_platform" name="grup" color="C7F4BE" x="48" y="480" />
+		<entity schema="mezun_platform" name="grup_uye" color="C7F4BE" x="304" y="736" />
+		<entity schema="mezun_platform" name="ilan" color="BEBEF4" x="1104" y="48" />
+		<entity schema="mezun_platform" name="kullanici" color="C7F4BE" x="304" y="48" />
+		<entity schema="mezun_platform" name="migrations" color="BED3F4" x="1392" y="1280" />
+		<entity schema="mezun_platform" name="personal_access_tokens" color="BED3F4" x="1104" y="1280" />
+		<entity schema="mezun_platform" name="rapor" color="F4DDBE" x="1360" y="768" />
+		<entity schema="mezun_platform" name="rapor_kayit" color="F4DDBE" x="1104" y="768" />
+		<entity schema="mezun_platform" name="resim" color="BEBEF4" x="1360" y="48" />
+		<entity schema="mezun_platform" name="yorum" color="C7F4BE" x="304" y="480" />
+		<script name="SQL Editor" id="Editor-1a35" language="SQL" >
+			<string><![CDATA[SELECT id, bolum_id, yetki, editor, mail, sifre, ad, telefon, d_tarih, k_tarih, m_tarih, facebook, instagram, twitter, son_giris, 
+	aktif, created_at, updated_at
+FROM
+	mezun_platform.kullanici i;]]></string>
+		</script>
+		<browser id="Browse-14f4" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="mezun_platform" entity="kullanici" x="20" y="20" width="400" height="300" >
+				<browse_table schema="mezun_platform" entity="basvuru" fk="basvuru_kullanici_id_foreign" x="440" y="20" width="500" height="350" >
+					<browse_table schema="mezun_platform" entity="ilan" fk="basvuru_ilan_id_foreign" x="960" y="20" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query-1d3a" name="Query Builder" >
+			<query_table schema="mezun_platform" name="kullanici" alias="k" x="48" y="48" >
+				<column name="id" />
+				<column name="bolum_id" />
+				<column name="yetki" />
+				<column name="editor" />
+				<column name="mail" />
+				<column name="sifre" />
+				<column name="ad" />
+				<column name="telefon" />
+				<column name="d_tarih" />
+				<column name="k_tarih" />
+				<column name="m_tarih" />
+				<column name="facebook" />
+				<column name="instagram" />
+				<column name="twitter" />
+				<column name="son_giris" />
+				<column name="aktif" />
+				<column name="created_at" />
+				<column name="updated_at" />
+				<query_table schema="mezun_platform" name="basvuru" alias="b" x="208" y="48" fk="basvuru_kullanici_id_foreign" type="Inner Join" >
+					<column name="id" />
+					<column name="metin" />
+					<column name="ilan_id" />
+					<column name="kullanici_id" />
+					<column name="created_at" />
+					<column name="updated_at" />
+					<query_table schema="mezun_platform" name="ilan" alias="i" x="368" y="48" fk="basvuru_ilan_id_foreign" type="Inner Join" >
+						<column name="id" />
+						<column name="baslik" />
+						<column name="metin" />
+						<column name="resim_id" />
+						<column name="kullanici_id" />
+						<column name="created_at" />
+						<column name="updated_at" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report &amp; Charts" id="Report-fe2" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" scroll="n" html="n" >
+				<cell type="label" name="Kullanici Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="label" name="&lt;i&gt;Extend this report with master-detail tables, buttons, images, etc. Click any cell to:&#10;&lt;ul&gt;&lt;li&gt;Edit its component. &#10;&lt;li&gt;Create new component in empty cells. &#10;&lt;li&gt;Add new rows or columns. &#10;&lt;li&gt;Merge cells. &#10;&lt;/ul&gt; Tables have their own cells and data source script. Details in Help and Quick Tour." template="Plain" pos="2,0,4,0,l,c" />
+				<cell type="chart" name="Line" template="Line" pos="0,1,4,1,l,c" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="-5" />
+						<var name="bolum_id" type="-5" />
+						<var name="yetki" type="16" />
+						<var name="editor" type="16" />
+						<var name="mail" />
+						<var name="sifre" />
+						<var name="ad" />
+						<var name="telefon" />
+						<var name="d_tarih" />
+						<var name="k_tarih" />
+						<var name="m_tarih" />
+						<var name="facebook" />
+						<var name="instagram" />
+						<var name="twitter" />
+						<var name="son_giris" type="93" />
+						<var name="aktif" type="16" />
+						<var name="created_at" type="93" />
+						<var name="updated_at" type="93" />
+						<script ><![CDATA[SELECT * FROM mezun_platform.kullanici]]></script>
+					</form_script>
+				</cell>
+				<tableview name="sample" template="Table" css="table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" scroll="n" html="n" header_rows="1" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="-5" />
+						<var name="bolum_id" type="-5" />
+						<var name="yetki" type="16" />
+						<var name="editor" type="16" />
+						<var name="mail" />
+						<var name="sifre" />
+						<var name="ad" />
+						<var name="telefon" />
+						<var name="d_tarih" />
+						<var name="k_tarih" />
+						<var name="m_tarih" />
+						<var name="facebook" />
+						<var name="instagram" />
+						<var name="twitter" />
+						<var name="son_giris" type="93" />
+						<var name="aktif" type="16" />
+						<var name="created_at" type="93" />
+						<var name="updated_at" type="93" />
+						<script ><![CDATA[SELECT * FROM mezun_platform.kullanici]]></script>
+					</form_script>
+					<cell type="label" name="id" pos="0,0,0,0,c,c" />
+					<cell type="label" name="bolum_id" pos="1,0,1,0,c,c" />
+					<cell type="label" name="yetki" pos="2,0,2,0,c,c" />
+					<cell type="label" name="editor" pos="3,0,3,0,c,c" />
+					<cell type="label" name="mail" pos="4,0,4,0,c,c" />
+					<cell type="label" name="sifre" pos="5,0,5,0,c,c" />
+					<cell type="label" name="Button can be configured to&lt;br&gt; open another sheet as page or dialog." pos="6,0,6,0,c,c" />
+					<cell type="label" name="${id}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${bolum_id}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${yetki}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${editor}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${mail}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${sifre}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-default btn-success" pos="6,1,6,1,c,c" ref_id="Report-fe2" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="FA-ANGLE_DOUBLE_LEFT" ref_id="Report-fe2" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="FA-ANGLE_LEFT" ref_id="Report-fe2" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="FA-ANGLE_RIGHT" ref_id="Report-fe2" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>
