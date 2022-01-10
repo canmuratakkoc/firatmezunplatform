@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/giris', [UserController::class, 'kontrol']);
+Route::get('/', [PagesController::class, 'kontrol']);
+Route::post('/', [UserController::class, 'kullanici']);
+Route::post('/', [UserController::class, 'kullanici']);
+Route::post('/kayit', [UserController::class, 'kullanici']);
+
+Route::get('/kayit', function () {
+    return view('user.uye');
+});
+
+Route::get('/profil/{id}', function ($id) {
+    return view('feed.profil')->withTitle($id);
 });

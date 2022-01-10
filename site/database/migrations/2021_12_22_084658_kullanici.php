@@ -16,6 +16,7 @@ class Kullanici extends Migration
       Schema::create('kullanici', function (Blueprint $table) {
           $table->id();
           $table->unsignedBigInteger('bolum_id')->nullable()->constrained();
+          $table->unsignedBigInteger('resim_id')->nullable()->constrained();
           $table->boolean('yetki');
           $table->boolean('editor');
           $table->string('mail','75');
@@ -33,6 +34,7 @@ class Kullanici extends Migration
           $table->timestamps();
 
           $table->foreign('bolum_id')->references('id')->on('bolum');
+          $table->foreign('resim_id')->references('id')->on('resim');
       });
     }
 
