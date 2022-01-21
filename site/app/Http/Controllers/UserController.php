@@ -102,6 +102,31 @@ class UserController extends Controller
     }
   }
 
+  function guncelle(Request $req) {
+    $data = $req -> input();
+      $image = $req->file('resim');
+    if($image != null) {
+      $teaser_image = date("Y-m-d") . ' ' . date("H.i.s").'.'.$image->getClientOriginalExtension();
+      $destinationPath = public_path('/images');
+      $image->move($destinationPath, $teaser_image);
+      Resim::create([
+        'adres' => $teaser_image,
+      ]);
+    } else {
+      $teaser_image = Resim::firstwhere('id', Kullanici::firstwhere('id', $data['kullanici_id'])->resim_id)->adres;
+    }
+    Kullanici::where('id', $data['kullanici_id'])
+    ->update([
+      'mail' => $data['mail'],
+      'instagram' => $data['instagram'],
+      'facebook' => $data['facebook'],
+      'twitter' => $data['twitter'],
+      'bolum_id' => $data['bolum'],
+      'resim_id' => Resim::firstwhere('adres', '=', $teaser_image)->id
+    ]);
+    return redirect()->to('profil?kullanici='.$data['kullanici_id'])->send();
+  }
+
   function kontrol() {
     if(session() -> has('id')) {
       return view('feed.akis');

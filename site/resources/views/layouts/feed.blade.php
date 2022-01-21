@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav me-2">
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#">Akış</a>
+                        <a class="nav-link mx-2" href="/">Akış</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" href="#">İlanlar</a>
@@ -40,7 +40,7 @@
                         <a class="nav-link mx-2" href="#">Duyurular</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="profil/{{session('id')}}">{{Kullanici::firstwhere('id', session('id'))->ad}}</a>
+                        <a class="nav-link me-2" href="profil?kullanici={{session('id')}}">{{Kullanici::firstwhere('id', session('id'))->ad}}</a>
                     </li>
                     <li>
                         <div class="btn-group">
@@ -55,8 +55,10 @@
                         </div>
                     </li>
                 </ul>
-                <form class="d-flex mt-3">
-                    <input class="form-control me-2" type="search" placeholder="arkadaş, ilan veya duyuru arayın" aria-label="Search">
+                <form action="/ara" method="get" class="d-flex mt-3">
+                  @csrf
+                    <input type="text" name="filtre" value="k" style="display: none;">
+                    <input class="form-control me-2" type="search" placeholder="arkadaş, ilan veya duyuru arayın" aria-label="Search" name="keywoard">
                     <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 <form class="d-flex mt-3" action="/" method="post" id="cikis">

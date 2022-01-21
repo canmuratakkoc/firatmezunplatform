@@ -19,6 +19,7 @@ Route::get('/giris', [UserController::class, 'kontrol_giris']);
 Route::get('/', [UserController::class, 'kontrol']);
 Route::post('/', [UserController::class, 'kullanici']);
 Route::post('/kayit', [UserController::class, 'kullanici']);
+Route::post('/profil', [UserController::class, 'guncelle']);
 
 Route::get('/kayit', function () {
     return view('user.uye');
