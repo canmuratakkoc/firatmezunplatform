@@ -1,6 +1,12 @@
 @extends('layouts.feed')
 
 @section('content')
+<?php
+use App\Models\Kullanici;
+use App\Models\Resim;
+use App\Models\Gonderi;
+$gonderiler = App\Models\Gonderi::latest()->get();
+?>
     <div class="mt-5 mx-3">
         <div class="row">
             <div class="col">
@@ -38,28 +44,32 @@
             </div>
             <div class="col-6">
                 <!-- Gönderi paylaş -->
-                <form>
+                <form action="/" method="post" enctype="multipart/form-data">
+                  @csrf
                     <div class="form-group">
                         <label for="icerikPaylas">Gelişmeleri bizimle paylaşın</label>
-                        <textarea class="form-control my-2" id="icerikPaylas"></textarea>
+                        <textarea name="icerik" class="form-control my-2" id="icerikPaylas"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-outline-dark">Paylaş</button>
+                    <button type="submit" class="btn btn-outline-dark" name="paylas">Paylaş</button>
                     <label for="file-upload" class="btn btn-outline-dark" style="float: right;">
                         Resim Ekle <i class="bi bi-image ms-2"></i>
                     </label>
-                    <input id="file-upload" type="file" />
+                    <input name="resim" id="file-upload" type="file" accept="image/*" />
                 </form>
 
+                <?php
+                foreach ($gonderiler as $gonderi) {
+                 ?>
                 <!-- Gönderi listele -->
                 <form>
                     <div class="shadow-lg p-3 bg-light rounded">
                         <div class="form-group">
-                            <img class="rounded-circle" src="images/p1.jpg" alt="profil_resmi" style="width: 40px; height: 40px; object-fit: cover">
-                            <a class="navbar-brand ms-2" href="">Murat Can Akkoç</a>
+                            <img class="rounded-circle" src="images/{{Resim::firstwhere('id', Kullanici::firstwhere('id', $gonderi->kullanici_id)->resim_id)->adres}}" alt="profil_resmi" style="width: 40px; height: 40px; object-fit: cover">
+                            <a class="navbar-brand ms-2" href="">{{Kullanici::firstwhere('id', $gonderi->kullanici_id)->ad}}</a>
                         </div>
                         <div class="form-group my-3">
-                            <h5 class="border-bottom">Yeni Mühendislik Binası Tam Bir Mühendislik Harikası</h5>
-                            <img src="images/a.jpg" alt="mühendislik binası" id="icerik" style="width: 100%;">
+                            <h5 class="border-bottom">{{$gonderi->metin}}</h5>
+                            <img src="images/{{Resim::firstwhere('id', $gonderi->resim_id)->adres}}" alt="mühendislik binası" id="icerik" style="width: 100%;">
                         </div>
                         <!-- ↓ ↓ ↓ Etkileşim ↓ ↓ ↓ -->
                         <form>
@@ -101,11 +111,10 @@
                                 <span class="pt-2" class="width: max-content;">Harika bir bina olmuş</span>
                             </div>
                             <!-- ↑ ↑ ↑ Yorum Bitti ↑ ↑ ↑ -->
-
                         </div>
                     </div>
                 </form>
-
+              <?php } ?>
             </div>
             <div class="col">
                 <div class="d-flex flex-column bg-white" style="width: 100%;">

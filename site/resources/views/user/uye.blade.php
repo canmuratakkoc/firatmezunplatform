@@ -1,3 +1,6 @@
+<?php
+$bolumler = App\Models\Bolum::all()->sortby('ad');
+?>
 <html>
 
 <head>
@@ -51,7 +54,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text bg-dark"><i
                                     class="bi bi-telephone-fill text-white"></i></span>
-                            <input type="number" name="telefon" class="form-control" maxlength="10" placeholder="Telefon">
+                            <input type="number" name="telefon" class="form-control" maxlength="10" placeholder="Telefon örn: 5352125151">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text bg-dark"><i
@@ -62,9 +65,11 @@
                             <span class="input-group-text bg-dark"><i class="bi bi-book-fill text-white"></i></span>
                             <select name="bolum" class="form-control">
                               <option value="-1" class="text-muted" selected>Bölüm</option>
-                              <option value="1">Yazılım</option>
-                              <option value="2">Bilgisayar</option>
-                              <option value="3">Veterinerlik</option>
+                              <?php
+                              foreach ($bolumler as $bolum) {
+                               ?>
+                              <option value="{{$bolum->id}}">{{$bolum->ad}}</option>
+                            <?php } ?>
                             </select>
                         </div>
                         <div class="input-group mb-3">

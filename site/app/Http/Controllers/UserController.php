@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kullanici;
+use App\Models\Resim;
+use App\Models\Gonderi;
 
 class UserController extends Controller
 {
   function kullanici(Request $req) {
+    function pre_up($str){
+      $str = str_replace('i', 'İ', $str);
+      $str = str_replace('ı', 'I', $str);
+      return $str;
+    }
     if(isset($_POST['giris'])) {
-      // Giriş doğrulama
+    // Giriş doğrulama
       $data = $req -> input();
       if($data['email']==null) {
         return back()->with('error','E-mail yazmadınız!');
@@ -21,7 +28,7 @@ class UserController extends Controller
           if (Kullanici::firstwhere('id', '=', $id)->sifre == $data['sifre']) {
             $req -> session() -> put('email', $data['email']);
             $req -> session() -> put('sifre', $data['sifre']);
-            $req -> session() -> put('basarili', $id);
+            $req -> session() -> put('id', $id);
             return view('feed.akis');
           } else {
             return back()->with('error','Kullanıcı adı veya şifre hatalı!');
@@ -38,6 +45,8 @@ class UserController extends Controller
         return back()->with('error','Ad Soyad yazmadınız!');
       } else if($data['telefon']==null) {
         return back()->with('error','Telefon numarası yazmadınız!');
+      } else if(strlen($data['telefon'])!=10) {
+        return back()->with('error','Telefon numarası 10 haneli olmalıdır!');
       } else if($data['dtarih']==null) {
         return back()->with('error','Doğum tarihi yazmadınız!');
       } else if($data['bolum'] == -1) {
@@ -62,7 +71,7 @@ class UserController extends Controller
           'editor' => 0,
           'mail' => $data['email'],
           'sifre' => $data['sifre'],
-          'ad' => $data['ad'],
+          'ad' => mb_strtoupper(pre_up($data['ad']), 'UTF-8'),
           'telefon' => $data['telefon'],
           'd_tarih' => $data['dtarih'],
           'k_tarih' => $data['ktarih'],
@@ -72,15 +81,37 @@ class UserController extends Controller
         ]);
         return view('user.giris');
       }
+    } else if(isset($_POST['paylas'])) {
+      $image = $req->file('resim');
+      $teaser_image = date("Y-m-d") . ' ' . date("H.i.s").'.'.$image->getClientOriginalExtension();
+      $destinationPath = public_path('/images');
+      $image->move($destinationPath, $teaser_image);
+      Resim::create([
+        'adres' => $teaser_image,
+      ]);
+      Gonderi::create([
+        'metin' => $req->input('icerik'),
+        'resim_id' => Resim::firstwhere('adres', '=', $teaser_image)->id,
+        'kullanici_id' => session('id'),
+      ]);
+      return back();
     } else {
       // Çıkış
-      session() -> pull('basarili');
+      session() -> pull('id');
       return view('welcome');
     }
   }
 
   function kontrol() {
-    if(session() -> has('basarili')) {
+    if(session() -> has('id')) {
+      return view('feed.akis');
+    } else {
+      return view('welcome');
+    }
+  }
+
+  function kontrol_giris() {
+    if(session() -> has('id')) {
       return view('feed.akis');
     } else {
       return view('user.giris');

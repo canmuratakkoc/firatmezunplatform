@@ -15,9 +15,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/giris', [UserController::class, 'kontrol']);
-Route::get('/', [PagesController::class, 'kontrol']);
-Route::post('/', [UserController::class, 'kullanici']);
+Route::get('/giris', [UserController::class, 'kontrol_giris']);
+Route::get('/', [UserController::class, 'kontrol']);
 Route::post('/', [UserController::class, 'kullanici']);
 Route::post('/kayit', [UserController::class, 'kullanici']);
 
@@ -25,6 +24,10 @@ Route::get('/kayit', function () {
     return view('user.uye');
 });
 
-Route::get('/profil/{id}', function ($id) {
-    return view('feed.profil')->withTitle($id);
+Route::get('/ara', function () {
+    return view('feed.ara');
+});
+
+Route::get('/profil', function () {
+    return view('feed.profil');
 });

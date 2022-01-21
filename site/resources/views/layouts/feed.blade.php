@@ -40,7 +40,7 @@
                         <a class="nav-link mx-2" href="#">Duyurular</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="profil/{{Session::get('basarili')}}">{{Kullanici::firstwhere('id', Session::get('basarili'))->ad}}</a>
+                        <a class="nav-link me-2" href="profil/{{session('id')}}">{{Kullanici::firstwhere('id', session('id'))->ad}}</a>
                     </li>
                     <li>
                         <div class="btn-group">

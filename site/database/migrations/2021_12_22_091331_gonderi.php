@@ -15,7 +15,6 @@ class Gonderi extends Migration
     {
       Schema::create('gonderi', function (Blueprint $table) {
           $table->id();
-          $table->string('baslik',30);
           $table->string('metin',300);
           $table->unsignedBigInteger('resim_id')->nullable()->constrained();
           $table->unsignedBigInteger('kullanici_id')->constrained();
